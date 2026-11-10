@@ -2,7 +2,9 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 // Ruta del archivo físico de la base de datos SQLite
-const DB_PATH = path.join(__dirname, 'pokedex.db');
+const DB_PATH = process.env.RAILWAY_VOLUME_MOUNT_PATH
+    ? path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'pokedex.db')
+    : path.join(__dirname, 'pokedex.db');
 
 // Conexión al motor SQLite
 const db = new sqlite3.Database(DB_PATH, (err) => {
